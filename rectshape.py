@@ -11,6 +11,8 @@ class RectShape(pygame.sprite.Sprite):
         self.velocity = pygame.Vector2(0, 0)
         self.width = width
         self.height = height
+        self.rect = pygame.Rect(x, y, width, height)
+
     
     def update(self, dt):
         pass
