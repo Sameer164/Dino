@@ -2,6 +2,7 @@ import pygame, random
 from constants import *
 from dino import Dino
 from pebble import Pebble
+from cactus import Cactus
 
 
 def main():   
@@ -15,14 +16,17 @@ def main():
 
     updatables = pygame.sprite.Group()
     drawables = pygame.sprite.Group()
+    cactus = pygame.sprite.Group()
 
-    Dino.containers = [updatables, drawables]
+    Dino.containers = [drawables]
     Pebble.containers = [updatables, drawables]
+    Cactus.containers = [cactus, updatables, drawables]
 
     dino = Dino(DINO_WIDTH, MAX_HEIGHT//2, DINO_WIDTH, DINO_HEIGHT)
 
     for _ in range(NUM_PEBBLES):
         Pebble(random.randint(*PEBBLE_X_RANGE), PEBBLE_Y, random.randint(*PEBBLE_WIDTH_RANGE), random.randint(*PEBBLE_HEIGHT_RANGE))
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -31,6 +35,14 @@ def main():
         if pygame.time.get_ticks() % fast_interval == 0:
             speed *= 1.2
             pause = max(10, pause-5)
+        
+        if random.random() < 0.05: # Spawn a cactus at a random place
+            width = random.randint(*CACTUS_WIDTH_RANGE)
+            height = random.randint(*CACTUS_HEIGHT_RANGE)
+            y = LINE_POSITION_Y - height
+            x = MAX_WIDTH - width - 10
+            Cactus(x, y, width, height)
+
 
         screen.fill("black")
         pygame.draw.line(screen, "white", (0, LINE_POSITION_Y), (MAX_WIDTH, LINE_POSITION_Y))
