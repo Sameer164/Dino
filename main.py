@@ -18,7 +18,7 @@ def main():
     drawables = pygame.sprite.Group()
     cactus = pygame.sprite.Group()
 
-    Dino.containers = [drawables]
+    Dino.containers = [updatables, drawables]
     Pebble.containers = [updatables, drawables]
     Cactus.containers = [cactus, updatables, drawables]
 
@@ -36,7 +36,7 @@ def main():
             speed *= 1.2
             pause = max(10, pause-5)
         
-        if random.random() < 0.05: # Spawn a cactus at a random place
+        if random.random() < 0.01: # Spawn a cactus at a random place
             width = random.randint(*CACTUS_WIDTH_RANGE)
             height = random.randint(*CACTUS_HEIGHT_RANGE)
             y = LINE_POSITION_Y - height
