@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, sys
 from constants import *
 from dino import Dino
 from pebble import Pebble
@@ -47,6 +47,13 @@ def main():
         screen.fill("black")
         pygame.draw.line(screen, "white", (0, LINE_POSITION_Y), (MAX_WIDTH, LINE_POSITION_Y))
         updatables.update(speed)
+
+        for c in cactus:
+            if c.has_collided(dino):
+                print("Game Over")
+                sys.exit(0)
+
+
         for obj in drawables:
             obj.draw(screen)
         pygame.display.flip()
